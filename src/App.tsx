@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, SimpleGrid, CircularProgress, Tabs, TabList, TabPanels, Tab, TabPanel, useDisclosure } from '@chakra-ui/react'
+import { Box,  CircularProgress, Tabs, TabList, TabPanels, Tab, TabPanel, useDisclosure } from '@chakra-ui/react'
 import { TABS } from './constants'
 import { AppHeader, MovieCard, VideoModal } from './components'
 import { movie } from './types'
@@ -14,7 +14,7 @@ function App() {
   const [trailer, setTrailer] = useState({ show: false, url: '' })
   const { isOpen, onOpen, onClose } = useDisclosure()
   return (
-    <Box as="main" p="2rem" w="100vw">
+    <Box as="main" p="2rem" w="100vw" h="100vh" overflow="hidden">
       <AppHeader search={search} setSearch={setSearch} genres={genres} />
       {trailer.show && <VideoModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} trailer={trailer} setTrailer={setTrailer} />}
       <Tabs variant='soft-rounded' colorScheme='green' isFitted>

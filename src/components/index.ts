@@ -1,6 +1,6 @@
 export {default as MovieCard } from "./MovieCard"
 export {default as MovieCardDetails } from "./MovieCardDetails"
 export {default as AppHeader } from "./AppHeader"
-export {default as PlotModal } from "./PlotModal"
+export {default as DetailsModal } from "./DetailsModal"
 export {default as VideoModal } from "./VideoModal"
 export {default as SearchFilter } from "./SearchFilter"

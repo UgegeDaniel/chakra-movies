@@ -1,38 +1,25 @@
-.movie-list {
-    display: flex;
-    flex-direction: column;
-    padding: 0 2rem;
-    background-color: var(--pri-bg-color);
-    color: var(--pri-font-color-light);
-}
-
-.movie-list>h4 {
-    position: relative;
-    z-index: 2;
-    font-size: 1.5rem;
-    margin: 0.5rem;
-    margin-top: 2rem;
-}
-
-.movie-list>h4::after {
-    content: '';
-    display: block;
-    height: 2px;
-    width: 5rem;
-    margin: 0.3rem 3rem;
-    background-color: var(--pri-accent-color)
-}
 
 .movie-carousel {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: auto-fill(30%);
+    grid-auto-columns: auto-fill(36%);
     gap: 0.01vw;
     overflow-x: auto;
     scroll-snap-type: inline mandatory;
     min-height: 200px;
 }
 
+.genre-carousel {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: auto-fill(10%);
+    overflow-x: auto;
+    scroll-snap-type: inline mandatory;
+    min-height: 20px;
+}
+.genre-carousel::-webkit-scrollbar {
+    display: none
+}
 .movie-carousel::-webkit-scrollbar {
     display: none
 }
@@ -45,9 +32,20 @@
     box-shadow: 7px 10px 10px -1px rgb(61, 90, 241, 0.16),
         -7px -10px 10px -3px rgba(14, 21, 58, 0.70);
     border-radius: 5px;
-    transition: var(--transition)
+}
+.genre {
+    position: relative;
+    height: 20px;
+    width: 100px;
+    margin: 1rem;
+    box-shadow: 7px 10px 10px -1px rgb(61, 90, 241, 0.16),
+        -7px -10px 10px -3px rgba(14, 21, 58, 0.70);
+    border-radius: 5px;
 }
 
+.genre:hover {
+    transform: scale(1.05)
+}
 .movie-card:hover {
     transform: scale(1.05)
 }
@@ -61,39 +59,4 @@
     height: 100%;
     width: 100%;
     border-radius: 10px;
-}
-
-.movie-card .logo {
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    height: 30px;
-    width: 30px;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-}
-
-.movie-card .top-ten {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 50px;
-    width: 30px;
-    background-color: var(--pri-accent-color);
-    border-top-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-
-.movie-card .new-episodes {
-    position: absolute;
-    bottom: 5px;
-    z-index: 1;
-    margin: 0 10%;
-    padding: 0.25rem 0.3rem;
-    background-color: darkred;
 }

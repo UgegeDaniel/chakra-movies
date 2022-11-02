@@ -15,7 +15,6 @@ const useData = (urlParams?: string) => {
             const { results } = await response.json()
             setData(results)
             setLoading(false)
-            return
         } catch (error) {
             console.log(error)
         }
@@ -47,7 +46,7 @@ const useData = (urlParams?: string) => {
             }
         }, [data])
 
-        const debounce = (debounceFxn: Promise<void>, delay: number) => {
+        const debounce = (debounceFxn: (url: string) => Promise<void>, delay: number) => {
             return (url: string) => {
               const timeout = setTimeout(() => {
                 debounceFxn(url);
@@ -59,7 +58,8 @@ const useData = (urlParams?: string) => {
         useEffect(() => {
             const searchUrl = `${BASE_URL}/search/${search.type}?api_key=${API_KEY}${LANGUAGE}&page=1&query=${search.term}&include_adult=false`
             if (search.term) {
-              debounce(fetchData(searchUrl), 500)
+              // debounce(() => fetchData(searchUrl), 500)
+              fetchData(searchUrl)
               return
             } else {
               fetchData(`${BASE_URL}${urlParams}?api_key=${API_KEY}${LANGUAGE}`)
