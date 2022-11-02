@@ -8,27 +8,29 @@ export type movie = {
   media_type?: string;
   backdrop_path?: string;
   overview?: string;
-  genre_ids: Array<number>;
+  genre_ids: number[];
   streamProvider: string;
   trailerUrl: string;
   id: number;
 };
-export type item = {
+export type item  = {
   id?: number;
   media_type?: string;
-  urls?: Array<object>;
-  logo_path?: string;
-  type?: string
+  urls?: Array<{logo_path: string}>;
+  type?: string;
+  streamProvider?: string;
+  trailerUrl?: string;
+  genre_ids?: number[];
 }
+
 export type genreType = {
   name: string;
   id: number
 };
 
-export interface Props {
+export interface MovieCardProps {
   item: movie;
   getGenres: (genreIds: Array<number>) => any[];
-  genres: object[];
   setTrailer: React.Dispatch<React.SetStateAction<{
     show: boolean;
     url: string;
@@ -67,5 +69,5 @@ export interface PlotProps {
 }
 
 export interface ItemProps {
-  item: movie;
+  item: movie
 }

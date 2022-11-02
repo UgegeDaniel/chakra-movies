@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 import { Box, VStack, HStack, Image, Badge, Circle, useDisclosure, Avatar } from '@chakra-ui/react'
 import { FaPlay } from 'react-icons/fa'
-import { Props } from '../types'
+import { MovieCardProps } from '../types'
 import logo from "../assets/download.png"
 import {PlotModal, MovieCardDetails } from '../components'
 import { IMG_URL } from '../constants'
 
-const MovieCard: React.FC<Props> = ({ item, getGenres, setTrailer }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ item, getGenres, setTrailer }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const finalRef = useRef(null)
     return (
