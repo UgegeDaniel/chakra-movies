@@ -30,11 +30,12 @@ export type genreType = {
 
 export interface MovieCardProps {
   item: movie;
-  getGenres: (genreIds: Array<number>) => any[];
+  getGenres: (genreIds: Array<number>, genres: { name: string; id: number; }[]) => string[];
   setTrailer: React.Dispatch<React.SetStateAction<{
     show: boolean;
     url: string;
-  }>>
+  }>>;
+  genres: { name: string; id: number; }[]
 }
 
 export interface VideoProps {
@@ -66,6 +67,12 @@ export interface PlotProps {
   item: movie;
   isOpen: boolean;
   onClose: () => void;
+  getGenres: (genreIds: Array<number>, genres: { name: string; id: number; }[]) => string[];
+  genres: { name: string; id: number; }[];
+  setTrailer: React.Dispatch<React.SetStateAction<{
+    show: boolean;
+    url: string;
+  }>>;
 }
 
 export interface ItemProps {
