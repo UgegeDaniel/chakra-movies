@@ -8,7 +8,7 @@ export type movie = {
   media_type?: string;
   backdrop_path?: string;
   overview?: string;
-  genre_ids: number[];
+  genre_ids: Array<number | null | undefined>;
   streamProvider: string;
   trailerUrl: string;
   id: number;
@@ -20,17 +20,16 @@ export type item  = {
   type?: string;
   streamProvider?: string;
   trailerUrl?: string;
-  genre_ids?: number[];
+  genre_ids: Array<number | null | undefined>;
 }
 
 export type genreType = {
   name: string;
-  id: number
+  id: Array<number | null | undefined>
 };
 
 export interface MovieCardProps {
   item: movie;
-  getGenres: (genreIds: Array<number>, genres: { name: string; id: number; }[]) => string[];
   setTrailer: React.Dispatch<React.SetStateAction<{
     show: boolean;
     url: string;
@@ -54,7 +53,9 @@ export interface HeaderProps {
     type: string;
     term: string;
   }>>;
-  genres: Array<{ name: string }>
+  genres: Array<{ name: string, id:number }>;
+  setGenreId: React.Dispatch<React.SetStateAction<number | null>>;
+  genreId: number | null
 }
 export interface SearchProps {
   search: { type: string, term: string };
@@ -63,11 +64,18 @@ export interface SearchProps {
     term: string;
   }>>;
 }
-export interface PlotProps {
+export interface DetailsHeaderProps {
+  item: movie;
+  genres: { name: string; id: number; }[];
+  setTrailer: React.Dispatch<React.SetStateAction<{
+    show: boolean;
+    url: string;
+  }>>;
+}
+export interface DetailsProps {
   item: movie;
   isOpen: boolean;
   onClose: () => void;
-  getGenres: (genreIds: Array<number>, genres: { name: string; id: number; }[]) => string[];
   genres: { name: string; id: number; }[];
   setTrailer: React.Dispatch<React.SetStateAction<{
     show: boolean;
