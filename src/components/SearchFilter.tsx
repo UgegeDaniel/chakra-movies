@@ -6,7 +6,7 @@ import { debounce } from '../utils'
 
 const SearchFilter: React.FC<SearchProps> = ({ search, setSearch }) => {
     const handleChange = (event: any) => {
-        setSearch({ ...search, term: event.target.value })
+        setSearch({ ...search, term: event?.target?.value })
     }
     const optimisedSearch = useCallback(debounce(handleChange), [])
     return (

@@ -20,7 +20,7 @@ export type item  = {
   type?: string;
   streamProvider?: string;
   trailerUrl?: string;
-  genre_ids: Array<number | null | undefined>;
+  genre_ids?: Array<number | null | undefined>;
 }
 
 export type genreType = {

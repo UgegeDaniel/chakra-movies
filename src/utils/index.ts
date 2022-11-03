@@ -9,14 +9,14 @@ export const getGenres = (genreIds: Array<number | null | undefined>, genres: { 
   return genreNames
 }
 
-export const debounce = (debounceFxn: any) => {
+
+export const debounce = (debounceFxn: (e: any) => void) => {
   let timer: any;
-  return function (...args: any) {
-    const context = this;
+  return (...args: any) => {
     if (timer)  clearTimeout(timer)
     timer = setTimeout(() => {
       timer = null
-      debounceFxn.apply(context, args)
+      debounceFxn.apply(null, args)
     }, 2000)
   }
 }
