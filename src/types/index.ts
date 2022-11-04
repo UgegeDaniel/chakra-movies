@@ -64,6 +64,12 @@ export interface SearchProps {
     term: string;
   }>>;
 }
+//  genreId, setGenreId, genres
+export interface GenreProps {
+  genreId: number | null;
+  setGenreId: React.Dispatch<React.SetStateAction<number | null>>;
+  genres:  Array<{ name: string, id:number }>;
+}
 export interface DetailsHeaderProps {
   item: movie;
   genres: { name: string; id: number; }[];

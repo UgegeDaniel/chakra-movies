@@ -11,17 +11,17 @@ const SearchFilter: React.FC<SearchProps> = ({ search, setSearch }) => {
     const optimisedSearch = useCallback(debounce(handleChange), [])
     return (
         <FormControl>
-            <HStack w='md' >
-                <IconButton colorScheme='teal' aria-label='Search movies' icon={<FaSearch />} />
-                <Input type='text' onChange={optimisedSearch} placeholder="Search Chakra Movies"/>
+            <HStack w='md' marginLeft="1.2rem" marginRight="1.2rem">
+                <IconButton colorScheme='teal' aria-label='Search movies' icon={<FaSearch />} size="sm"/>
+                <Input type='text' onChange={optimisedSearch} placeholder="Search Chakra Movies" fontSize="xs" size="sm" maxW="sm"/>
                 <Box m={2}>
                     <Menu>
-                        <MenuButton px={4} py={2} transition='all 0.2s' borderRadius='md' borderWidth='1px' _hover={{ bg: 'teal.400' }} _expanded={{ bg: 'teal.500' }} _focus={{ boxShadow: 'outline' }} as={Button} rightIcon={<FaChevronDown color='teal' />} variant='soft-rounded'>
+                        <MenuButton  py={1} transition='all 0.2s' borderRadius='sm' borderWidth='1px' _hover={{ bg: 'teal.400' }} _expanded={{ bg: 'teal.500' }} _focus={{ boxShadow: 'outline' }} as={Button} rightIcon={<FaChevronDown color='teal' fontSize="xs"/>} variant='soft-rounded' fontSize="xs">
                             {search.type.toUpperCase()}
                         </MenuButton>
-                        <MenuList>
-                            <MenuItem onClick={() => setSearch({ ...search, type: 'movie' })}>MOVIES </MenuItem>
-                            <MenuItem onClick={() => setSearch({ ...search, type: 'tv' })}>TV SHOWS</MenuItem>
+                        <MenuList >
+                            <MenuItem onClick={() => setSearch({ ...search, type: 'movie' })} fontSize="xs">MOVIES </MenuItem>
+                            <MenuItem onClick={() => setSearch({ ...search, type: 'tv' })} fontSize="xs">TV SHOWS</MenuItem>
                         </MenuList>
                     </Menu>
                 </Box>
