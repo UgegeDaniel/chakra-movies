@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { API_KEY, BASE_URL, IMG_URL, LANGUAGE, YT_URL } from '../constants'
 import { movie, item } from '../types'
 
@@ -8,7 +8,7 @@ const useData = (urlParams?: string, genreId?: number | null) => {
     const [search, setSearch] = useState({ type: 'movie', term: '' })
     const searchUrl = `${BASE_URL}/search/${search.type}?api_key=${API_KEY}${LANGUAGE}&page=1&query=${search.term}&include_adult=false`
 
-    const fetchData = async (url: string) => {
+    const fetchData = useCallback (async (url: string) => {
         setLoading(true);
         try {
             const response = await fetch(url)
@@ -20,7 +20,7 @@ const useData = (urlParams?: string, genreId?: number | null) => {
         } catch (error) {
             console.log(error)
         }
-    }
+    }, [genreId])
 
     useEffect(() => {
         if (data.length > 0 && !search.term) {
@@ -46,8 +46,8 @@ const useData = (urlParams?: string, genreId?: number | null) => {
                 !data[0].trailerUrl && setData(augmentedData)
             })
         }
-    }, [data])
-
+    }, [data, search.term])
+//     const = useCallback(debounce(handleChange), [])
     useEffect(() => {
         if (search.term) {
             fetchData(searchUrl)
@@ -55,7 +55,7 @@ const useData = (urlParams?: string, genreId?: number | null) => {
         else {
             fetchData(`${BASE_URL}${urlParams}?api_key=${API_KEY}${LANGUAGE}`)
         }
-    }, [urlParams, search.term])
+    }, [urlParams, search.term, fetchData, searchUrl])
     return { loading, data, search, setSearch, setData }
 }
 

@@ -8,7 +8,7 @@ const VideoModal: React.FC<VideoProps> = ({trailer, setTrailer, onClose, onOpen,
         <ModalOverlay />
         <ModalContent width="90vw" height="60vh">
           <ModalCloseButton bg='#FF0000' color='white' onClick={()=> setTrailer({show: false, url:''})}/>
-          <ModalBody> <iframe width="100%" height="100%" src={trailer.url} > </iframe> </ModalBody>
+          <ModalBody> <iframe width="100%" height="100%" src={trailer.url} title="movie trailer"> </iframe> </ModalBody>
         </ModalContent>
       </Modal>
     </div>
