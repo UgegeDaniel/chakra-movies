@@ -1,62 +1,87 @@
-import { useState, useEffect, useCallback } from 'react'
-import { API_KEY, BASE_URL, IMG_URL, LANGUAGE, YT_URL } from '../constants'
-import { movie, item } from '../types'
+import { useState, useEffect, useCallback } from 'react';
+import {
+  API_KEY, BASE_URL, IMG_URL, LANGUAGE, YT_URL,
+} from '../constants';
+import { MovieType, StreamProviderResultType } from '../types';
 
 const useData = (urlParams?: string, genreId?: number | null) => {
-    const [loading, setLoading] = useState(true)
-    const [data, setData] = useState<Array<movie>>([])
-    const [search, setSearch] = useState({ type: 'movie', term: '' })
-    const searchUrl = `${BASE_URL}/search/${search.type}?api_key=${API_KEY}${LANGUAGE}&page=1&query=${search.term}&include_adult=false`
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState<Array<MovieType>>([]);
+  const [search, setSearch] = useState({ type: 'movie', term: '' });
+  const [currentMovieId, setCurrentMovieId] = useState<number | undefined | null>(null);
+  const currentMovie = currentMovieId && data.length > 0
+    ? data.find((item: MovieType) => item.id === currentMovieId)
+    : null;
+  const searchUrl = `${BASE_URL}/search/${search.type}?api_key=${API_KEY}${LANGUAGE}&page=1&query=${search.term}&include_adult=false`;
+  const media = currentMovie?.media_type ? currentMovie?.media_type : 'movie';
+  const getTrailerUrl: string = `${BASE_URL}/${media}/${currentMovieId}/videos?api_key=${API_KEY}${LANGUAGE}`;
+  const getStreamProviderUrl: string = `${BASE_URL}/${media}/${currentMovieId}/watch/providers?api_key=${API_KEY}`;
 
-    const fetchData = useCallback (async (url: string) => {
-        setLoading(true);
-        try {
-            const response = await fetch(url)
-            const { results } = await response.json()
-            const filteredMovies = results.filter((item: movie) => item.genre_ids.includes(genreId))
-            setLoading(false)
-            genreId ? setData(filteredMovies) : setData(results)
-            setLoading(false)
-        } catch (error) {
-            console.log(error)
-        }
-    }, [genreId])
+  const fetchData = useCallback(async (url: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(url);
+      const { results } = await response.json();
+      setData(results);
+      // const filteredMovies = data.filter(
+      //   (item: MovieType) => item.genre_ids.includes(genreId),
+      // );
+      // // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      // currentMovieId && setData(filteredMovies);
+      setLoading(false);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
+    }
+  }, [genreId]);
 
-    useEffect(() => {
-        if (data.length > 0 && !search.term) {
-            const urls = data.map((item: movie,) => {
-                const media = item.media_type || 'movie'
-                return {
-                    id: item.id, streamProviderUrl: `${BASE_URL}/${media}/${item.id}/watch/providers?api_key=${API_KEY}`, trailerKeyUrl: `${BASE_URL}/${media}/${item.id}/videos?api_key=${API_KEY}${LANGUAGE}`,
-                }
-            })
-            //GET STREAM PROVIDERS FOR EACH MOVIE
-            Promise.all(urls.map(item => fetch(item.streamProviderUrl))).then(resp => Promise.all(resp.map(r => r.text()))).then((streamProviders) => {
-                const json = streamProviders.map((item) => ({ id: JSON.parse(item).id, urls: JSON.parse(item).results.MX?.flatrate || JSON.parse(item).results.MX?.buy || JSON.parse(item).results.US?.flatrate || JSON.parse(item).results.GB?.free || JSON.parse(item).results.GB?.flatrate, }))
-                const providers = json.map((item: item) => ({ ...item, streamProvider: (item.urls && item.urls.length > 0) ? `${IMG_URL}${item.urls[0].logo_path}` : '' }))
-                const augmentedData = data.map((item: movie, index) => (item.id === providers[index].id ? { ...item, streamProvider: providers[index].streamProvider } : item))
-                !data[0].streamProvider && setData(augmentedData)
-            })
-            //GET TRAILERS FOR EACH MOVIE
-            Promise.all(urls.map(item => fetch(item.trailerKeyUrl))).then(resp => Promise.all(resp.map(r => r.text()))).then((trailers) => {
-                const json = trailers.map((item) => (
-                    { id: JSON.parse(item).id, url: `${YT_URL}${JSON.parse(item).results.find((item: item) => item.type === 'Trailer').key}` }
-                ))
-                const augmentedData = data.map((item: movie, index) => (item.id === json[index].id ? { ...item, trailerUrl: json[index].url } : item))
-                !data[0].trailerUrl && setData(augmentedData)
-            })
-        }
-    }, [data, search.term])
-//     const = useCallback(debounce(handleChange), [])
-    useEffect(() => {
-        if (search.term) {
-            fetchData(searchUrl)
-        }
-        else {
-            fetchData(`${BASE_URL}${urlParams}?api_key=${API_KEY}${LANGUAGE}`)
-        }
-    }, [urlParams, search.term, fetchData, searchUrl])
-    return { loading, data, search, setSearch, setData }
-}
+  useEffect(() => {
+    if (search.term) {
+      fetchData(searchUrl);
+    } else {
+      fetchData(`${BASE_URL}${urlParams}?api_key=${API_KEY}${LANGUAGE}`);
+    }
+  }, [urlParams, search.term, fetchData, searchUrl]);
+  useEffect(() => {
+    const fetchExtraDetails = async () => {
+      //  GET TRAILER FOR CURRENT MOVIE
+      const getTrailerKey = await fetch(getTrailerUrl);
+      const getStreamProvider = await fetch(getStreamProviderUrl);
+      const {
+        results: getTrailerKeyResults,
+      }: { results: Array<{ site: string, key: string }> } = await getTrailerKey.json();
+      const trailerKey: string | undefined = getTrailerKeyResults.find(
+        (item: { site: string, key: string }) => item.site === 'YouTube',
+      )?.key;
+      const trailerUrl: string = currentMovieId ? `${YT_URL}${trailerKey}` : '';
 
-export default useData
+      //  GET STREAM PROVIDER FOR CURRENT MOVIE
+      const {
+        results: getStreamProviderResults,
+      }: { results: StreamProviderResultType } = await getStreamProvider.json();
+      const streamProviderLogo = (getStreamProviderResults?.US?.buy
+        && getStreamProviderResults?.US?.buy[0].logo_path)
+        || getStreamProviderResults?.US?.flatrate[0].logo_path
+        || getStreamProviderResults?.MX?.flatrate[0].logo_path
+        || getStreamProviderResults?.GB?.flatrate[0].logo_path;
+      const streamProvider = streamProviderLogo ? `${IMG_URL}${streamProviderLogo}` : '';
+      const item = {
+        ...data.find((dataItem) => dataItem.id === currentMovieId),
+        streamProvider,
+        trailerUrl,
+      };
+      const additionalInfo: MovieType[] = data.map((dataItem) => (dataItem.id === currentMovieId
+        ? { ...dataItem, ...item }
+        : dataItem));
+      setData(additionalInfo);
+    };
+    if (currentMovieId) {
+      fetchExtraDetails();
+    }
+  }, [currentMovieId]);
+  return {
+    loading, data, search, currentMovieId, setSearch, setData, setCurrentMovieId,
+  };
+};
+
+export default useData;
