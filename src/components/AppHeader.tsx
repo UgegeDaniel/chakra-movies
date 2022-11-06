@@ -28,7 +28,11 @@ const AppHeader: React.FC<HeaderProps> = function ({
         <Spacer />
         <SearchFilter setSearch={setSearch} search={search} />
       </VStack>
-      <GenreFilter genreId={genreId} setGenreId={setGenreId} genres={genres} />
+      <GenreFilter
+        genreId={genreId}
+        setGenreId={setGenreId}
+        genres={genres}
+      />
     </div>
   );
 };

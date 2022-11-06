@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Box, CircularProgress, Tabs, TabList, TabPanels, Tab, TabPanel, useDisclosure, HStack,
+  Box, CircularProgress, HStack,
+  Tabs, TabList, TabPanels, Tab, TabPanel, useDisclosure,
 } from '@chakra-ui/react';
 import { TABS } from './constants';
 import { AppHeader, MovieCard, VideoModal } from './components';

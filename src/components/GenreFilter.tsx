@@ -3,11 +3,15 @@ import React from 'react';
 import { Box, Tag, TagLabel } from '@chakra-ui/react';
 import { GenreProps } from '../types';
 
-const GenreFilter:
-React.FC<GenreProps> = function ({ genreId, setGenreId, genres }): JSX.Element {
-  const resetGenres = (id: number | null | undefined): void => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    !id ? setGenreId(null) : setGenreId(id);
+const GenreFilter: React.FC<GenreProps> = function ({
+  genreId, setGenreId, genres,
+}): JSX.Element {
+  const resetGenres = (item?: { id: number | null | undefined, name: string }): void => {
+    if (!item) {
+      setGenreId(null);
+    } else {
+      setGenreId(item.id);
+    }
   };
   return (
     <Box
@@ -25,7 +29,7 @@ React.FC<GenreProps> = function ({ genreId, setGenreId, genres }): JSX.Element {
           className="genre"
         >
           <TagLabel
-            onClick={() => resetGenres(null)}
+            onClick={() => resetGenres()}
             fontSize="xs"
           >
             All
@@ -41,7 +45,7 @@ React.FC<GenreProps> = function ({ genreId, setGenreId, genres }): JSX.Element {
             className="genre"
           >
             <TagLabel
-              onClick={() => resetGenres(item.id)}
+              onClick={() => resetGenres(item)}
             >
               {item.name}
             </TagLabel>

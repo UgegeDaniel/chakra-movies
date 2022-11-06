@@ -1,5 +1,6 @@
 import {
   SetDataType, SetUrlParamsType, GenreIdsType, GenresType,
+  StreamProviderResultType,
 } from '../types';
 
 export const newUrlParams = (
@@ -33,3 +34,18 @@ export const debounce = (
     }, 2000);
   };
 };
+
+export const getLogo = (getStreamProviderResults: StreamProviderResultType) => (
+  (getStreamProviderResults?.US?.buy
+    && getStreamProviderResults?.US?.buy[0].logo_path)
+  || getStreamProviderResults?.US?.flatrate[0].logo_path
+  || getStreamProviderResults?.MX?.flatrate[0].logo_path
+  || getStreamProviderResults?.MX?.buy[0].logo_path
+  || getStreamProviderResults?.GB?.flatrate[0].logo_path
+);
+
+export const getKey = (getTrailerKeyResults: Array<{ type: string, key: string }>) => (
+  getTrailerKeyResults.find(
+    (item: { type: string, key: string }) => item.type === 'Trailer',
+  )?.key
+);

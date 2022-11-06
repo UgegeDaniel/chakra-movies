@@ -13,7 +13,7 @@ import { debounce } from '../utils';
 
 const SearchFilter: React.FC<SearchProps> = function ({ search, setSearch }): JSX.Element {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearch({ ...search, term: event?.target?.value });
+    setSearch({ ...search, term: event.target.value });
   };
   const optimisedSearch = useCallback(debounce(handleChange), []);
   return (

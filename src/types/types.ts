@@ -13,7 +13,7 @@ export type SetMovieIdType = React.Dispatch<React.SetStateAction<number | null |
 
 export type StreamProviderResultType = {
   US?: { flatrate: [{ logo_path: string }], buy: [{ logo_path: string }] },
-  MX?: { flatrate: [{ logo_path: string }] },
+  MX?: { flatrate: [{ logo_path: string }], buy: [{ logo_path: string }] },
   GB?: { flatrate: [{ logo_path: string }] }
 };
 
