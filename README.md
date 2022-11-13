@@ -1,5 +1,5 @@
 *deployed on vercel*
-# Moviemania
+# Chakra Movies
 
 This is a React / Typescript app to help people search through movies by categories, search for specific movies and preview movie details. Its a simple app to demostrate the basic features of the react library.
 
