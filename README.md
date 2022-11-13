@@ -37,6 +37,7 @@ This is a React / Typescript app to help people search through movies by categor
   - React hooks (useState, useEffect, useCallback)
   - Custom hooks
 - This app also demonstrates the building of basic unit / integration tests with the React Testing Library.
+
 <!-- BUILT wITH -->
 
 ## Built with
