@@ -46,6 +46,6 @@ export interface DetailsProps {
   setShowVideo: SetShowVideoType;
 }
 
-export interface ItemProps {
-  item: MovieType
-}
+// export interface ItemProps {
+//   item: MovieType
+// }

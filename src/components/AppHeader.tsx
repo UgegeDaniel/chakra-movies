@@ -4,8 +4,7 @@ import {
   VStack, HStack, Image, Spacer, Heading, Highlight,
 } from '@chakra-ui/react';
 import logo from '../assets/download.png';
-import SearchFilter from './SearchFilter';
-import GenreFilter from './GenreFilter';
+import { SearchFilter, GenreFilter } from '.';
 import { HeaderProps } from '../types';
 
 const AppHeader: React.FC<HeaderProps> = function ({

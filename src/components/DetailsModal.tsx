@@ -5,7 +5,7 @@ import {
 } from '@chakra-ui/react';
 import { DetailsProps } from '../types';
 import { IMG_URL } from '../constants';
-import DetailsModalHeader from './DetailsModalHeader';
+import { DetailsModalHeader } from '.';
 
 const DetailsModal: React.FC<DetailsProps> = function ({
   item, isOpen, onClose, genres, setShowVideo,
@@ -18,7 +18,7 @@ const DetailsModal: React.FC<DetailsProps> = function ({
           <DetailsModalHeader item={item} genres={genres} setShowVideo={setShowVideo} />
           <ModalCloseButton colorScheme="teal" mr={3} onClick={onClose} />
           <ModalBody>
-            <Image src={`${IMG_URL}${item.backdrop_path}`} alt="backdrop path" boxSize="100%" maxHeight="32vh" />
+            <Image src={`${IMG_URL}${item?.backdrop_path}`} alt="backdrop path" boxSize="100%" maxHeight="32vh" />
             <Box p={5} shadow="md" borderWidth="1px">
               {' '}
               <Text mt={4} fontSize="14px" height="16vh" padding="4px">

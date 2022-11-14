@@ -25,7 +25,7 @@ export type MovieType = {
   vote_count?: number;
   poster_path?: string;
   media_type?: string;
-  backdrop_path?: string;
+  backdrop_path: string;
   overview?: string;
   genre_ids: GenreIdsType;
   streamProvider: string;

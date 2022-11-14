@@ -14,7 +14,7 @@
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": "chakra-movies/tsconfig.json"
+        "project": "tsconfig.json"
     },
     "ignorePatterns": [
         "vite.config.ts"

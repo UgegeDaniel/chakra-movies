@@ -23,14 +23,14 @@ export const getGenres = (
 };
 
 export const debounce = (
-  debounceFxn: (e: any) => void,
+  debounceFxn: (e: React.ChangeEvent<HTMLInputElement>) => void,
 ) => {
-  let timer: any;
-  return (...args: any) => {
+  let timer: string | number | NodeJS.Timeout | undefined;
+  return (e: React.ChangeEvent<HTMLInputElement>) => {
     if (timer) clearTimeout(timer);
     timer = setTimeout(() => {
-      timer = null;
-      debounceFxn([...args]);
+      timer = undefined;
+      debounceFxn(e);
     }, 2000);
   };
 };

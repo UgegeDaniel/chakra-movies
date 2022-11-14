@@ -3,7 +3,7 @@ import React from 'react';
 import { Box, Image, useDisclosure } from '@chakra-ui/react';
 import { MovieCardProps } from '../types';
 import logo from '../assets/download.png';
-import DetailsModal from './DetailsModal';
+import { DetailsModal } from '.';
 import { IMG_URL } from '../constants';
 
 const MovieCard: React.FC<MovieCardProps> = function ({

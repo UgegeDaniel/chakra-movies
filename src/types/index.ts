@@ -3,7 +3,6 @@ export type { DetailsProps } from './propTypes';
 export type { DetailsHeaderProps } from './propTypes';
 export type { GenreProps } from './propTypes';
 export type { HeaderProps } from './propTypes';
-export type { ItemProps } from './propTypes';
 export type { MovieCardProps } from './propTypes';
 export type { SearchProps } from './propTypes';
 export type { VideoProps } from './propTypes';
