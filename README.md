@@ -15,7 +15,7 @@ This is a React / Typescript app to help people search through movies by categor
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
 
-<!-- Movie features -->
+<!-- Movie featurs -->
 
 ## Movie Features
 
