@@ -49,6 +49,3 @@ export interface DetailsProps {
   currentMovieId: number | string;
 }
 
-// export interface ItemProps {
-//   item: MovieType
-// }
