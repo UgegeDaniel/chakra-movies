@@ -5,7 +5,6 @@ export type GenreIdsType = Array<GenreIdType | undefined>;
 // defines the type for the array of genre ids
 export type GenreType = { name: string; id: GenreIdType };
 export type GenresType = GenreType[];
-// defines the type for the array of genre ids including genre names
 
 export type SearchType = { type: string, term: string };
 export type SetSearchType = React.Dispatch<React.SetStateAction<SearchType>>;
@@ -30,19 +29,7 @@ export type MovieType = {
   genre_ids: GenreIdsType;
   streamProvider: string;
   trailerUrl: string;
-  id: number;
+  id: number | string;
 };
-export type ItemType = {
-  id?: number;
-  media_type?: string;
-  urls?: Array<{ logo_path: string }>;
-  type?: string;
-  streamProvider?: string;
-  trailerUrl?: string;
-  genre_ids?: GenreIdsType;
-  site?: string;
-  key?: string
-};
-export type SetDataType = React.Dispatch<React.SetStateAction<MovieType[]>>;
-export type SetUrlParamsType = React.Dispatch<React.SetStateAction<string>>;
+
 export type SetShowVideoType = React.Dispatch<React.SetStateAction<boolean>>;

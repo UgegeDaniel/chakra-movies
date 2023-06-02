@@ -1,26 +1,30 @@
 /* eslint-disable func-names */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Image, useDisclosure } from '@chakra-ui/react';
 import { MovieCardProps } from '../types';
 import logo from '../assets/download.png';
 import { DetailsModal } from '.';
-import { IMG_URL } from '../constants';
+import { API_KEY, BASE_URL, IMG_URL, LANGUAGE } from '../constants';
+import { getLogo } from '../utils';
 
 const MovieCard: React.FC<MovieCardProps> = function ({
-  item, genres, setCurrentMovieId, setShowVideo,
+  movie, genres
 }): JSX.Element {
   const {
     isOpen, onOpen, onClose,
   } = useDisclosure();
+
+  const [currentMovieId, setCurrentMovieId] = useState<string | number>('');
   const getDetails = () => {
-    setCurrentMovieId(item.id);
+    setCurrentMovieId(movie.id);
     onOpen();
   };
+
   return (
     <Box p="6">
       <Box tabIndex={-1} maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden" onClick={getDetails}>
         <Image
-          src={item.poster_path ? `${IMG_URL}${item.poster_path}` : logo}
+          src={movie.poster_path ? `${IMG_URL}${movie.poster_path}` : logo}
           alt="movie poster"
           height={200}
           width="100%"
@@ -29,11 +33,11 @@ const MovieCard: React.FC<MovieCardProps> = function ({
         />
       </Box>
       <DetailsModal
-        item={item}
+        movie={movie}
         isOpen={isOpen}
         onClose={onClose}
         genres={genres}
-        setShowVideo={setShowVideo}
+        currentMovieId={currentMovieId}
       />
     </Box>
   );

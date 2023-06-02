@@ -6,12 +6,14 @@ import {
   ModalCloseButton,
   ModalContent,
   ModalOverlay,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { VideoProps } from '../types';
 
 const VideoModal: React.FC<VideoProps> = function ({
-  currentMovie, onClose, setShowVideo,
+  trailerUrl, setShowVideo,
 }): JSX.Element {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <div>
       <Modal
@@ -31,7 +33,7 @@ const VideoModal: React.FC<VideoProps> = function ({
             <iframe
               width="100%"
               height="100%"
-              src={currentMovie?.trailerUrl}
+              src={trailerUrl}
               title="movie trailer"
             />
           </ModalBody>

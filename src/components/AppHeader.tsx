@@ -5,11 +5,9 @@ import {
 } from '@chakra-ui/react';
 import logo from '../assets/download.png';
 import { SearchFilter, GenreFilter } from '.';
-import { HeaderProps } from '../types';
+import { AppHeaderProps } from '../types/propTypes';
 
-const AppHeader: React.FC<HeaderProps> = function ({
-  search, setSearch, genres, setGenreId, genreId,
-}): JSX.Element {
+const AppHeader: React.FC<AppHeaderProps> = function ({ setMovies, setLoading, genres}): JSX.Element {
   const logoHighlightStyle = {
     px: '2', py: '1', rounded: 'full', bg: 'teal.100', color: 'gray.600',
   };
@@ -25,13 +23,9 @@ const AppHeader: React.FC<HeaderProps> = function ({
           </Heading>
         </HStack>
         <Spacer />
-        <SearchFilter setSearch={setSearch} search={search} />
+        <SearchFilter setMovies={setMovies} setLoading={setLoading} />
       </VStack>
-      <GenreFilter
-        genreId={genreId}
-        setGenreId={setGenreId}
-        genres={genres}
-      />
+      <GenreFilter setMovies={setMovies} setLoading={setLoading} genres={genres}/>
     </div>
   );
 };

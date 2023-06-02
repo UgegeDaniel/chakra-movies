@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable func-names */
-import React, { useCallback } from 'react';
+import React from 'react';
 import {
   Box, Button,
   FormControl, HStack,
@@ -9,14 +7,11 @@ import {
   MenuItem, MenuList,
 } from '@chakra-ui/react';
 import { FaChevronDown, FaSearch } from 'react-icons/fa';
-import { SearchProps } from '../types';
-import { debounce } from '../utils';
+import { FilterProps } from '../types/propTypes';
+import useSearch from '../hooks/useSearch';
 
-const SearchFilter: React.FC<SearchProps> = function ({ search, setSearch }): JSX.Element {
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearch({ ...search, term: event.target.value });
-  };
-  const optimisedSearch = useCallback(debounce(handleChange), []);
+const SearchFilter: React.FC<FilterProps> = function ({ setMovies, setLoading }): JSX.Element {
+  const { optimisedSearch, search, setSearch } = useSearch(setMovies, setLoading);
   return (
     <FormControl>
       <HStack w="md" marginLeft="1.2rem" marginRight="1.2rem">

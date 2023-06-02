@@ -1,18 +1,11 @@
 /* eslint-disable func-names */
 import React from 'react';
 import { Box, Tag, TagLabel } from '@chakra-ui/react';
-import { GenreProps } from '../types';
+import { GenreFilterProps } from '../types/propTypes';
+import useGenre from '../hooks/useGenre';
 
-const GenreFilter: React.FC<GenreProps> = function ({
-  genreId, setGenreId, genres,
-}): JSX.Element {
-  const resetGenres = (item?: { id: number | null | undefined, name: string }): void => {
-    if (!item) {
-      setGenreId(null);
-    } else {
-      setGenreId(item.id);
-    }
-  };
+const GenreFilter: React.FC<GenreFilterProps> = function ({ setMovies, setLoading, genres }): JSX.Element {
+  const { currentGenreId, setCurrentGenreId } = useGenre(setMovies, setLoading);
   return (
     <Box
       p={1.5}
@@ -20,34 +13,20 @@ const GenreFilter: React.FC<GenreProps> = function ({
       <div
         className="genre-carousel"
       >
-        <Tag
-          size="lg"
-          colorScheme={genreId === null
-            ? 'red'
-            : 'green'}
-          borderRadius="full"
-          className="genre"
-        >
-          <TagLabel
-            onClick={() => resetGenres()}
-            fontSize="xs"
-          >
-            All
-          </TagLabel>
-        </Tag>
-        {genres.map((item) => (
+        {genres.map((genre) => (
           <Tag
             size="lg"
-            colorScheme={genreId === item.id ? 'red' : 'green'}
+            colorScheme={currentGenreId === genre.id ? 'red' : 'green'}
+            onClick={() => setCurrentGenreId(genre.id)}
             borderRadius="full"
-            key={item.id}
+            key={genre.id}
             fontSize="xs"
             className="genre"
+            style={{ cursor: 'pointer' }}
           >
             <TagLabel
-              onClick={() => resetGenres(item)}
             >
-              {item.name}
+              {genre.name}
             </TagLabel>
           </Tag>
         ))}

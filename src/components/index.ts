@@ -5,3 +5,5 @@ export { default as VideoModal } from './VideoModal';
 export { default as SearchFilter } from './SearchFilter';
 export { default as DetailsModalHeader } from './DetailsModalHeader';
 export { default as GenreFilter } from './GenreFilter';
+export { default as Categories } from './Categories';
+export { default as MovieRow } from './MovieRow';

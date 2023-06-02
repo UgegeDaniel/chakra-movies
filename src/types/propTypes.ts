@@ -5,16 +5,11 @@ import {
 } from './types';
 
 export interface MovieCardProps {
-  item: MovieType;
+  movie: MovieType;
   genres: GenresType;
-  setCurrentMovieId: SetMovieIdType;
-  setShowVideo: SetShowVideoType;
 }
 export interface VideoProps {
-  onClose: () => void;
-  isOpen: boolean;
-  onOpen: () => void;
-  currentMovie?: MovieType;
+  trailerUrl?: string;
   setShowVideo: SetShowVideoType;
 }
 export interface HeaderProps {
@@ -24,9 +19,17 @@ export interface HeaderProps {
   setGenreId: SetGenreIdType;
   genreId: GenreIdType;
 }
-export interface SearchProps {
-  search: SearchType;
-  setSearch: SetSearchType;
+export interface FilterProps {
+  setMovies: React.Dispatch<React.SetStateAction<MovieType[]>>;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface GenreFilterProps extends FilterProps {
+  genres: GenresType;
+}
+
+export interface AppHeaderProps extends FilterProps {
+  genres: GenresType;
 }
 export interface GenreProps {
   genreId: GenreIdType;
@@ -34,16 +37,16 @@ export interface GenreProps {
   genres: GenresType;
 }
 export interface DetailsHeaderProps {
-  item: MovieType;
+  movie: MovieType;
   genres: GenresType;
-  setShowVideo: SetShowVideoType;
+  currentMovieId: number | string;
 }
 export interface DetailsProps {
-  item: MovieType;
+  movie: MovieType;
   isOpen: boolean;
   onClose: () => void;
   genres: GenresType;
-  setShowVideo: SetShowVideoType;
+  currentMovieId: number | string;
 }
 
 // export interface ItemProps {

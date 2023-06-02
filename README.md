@@ -90,7 +90,7 @@ your@pc:~$ npm install
 Open the app
 
 ```Shell
-your@pc:~$ npm start
+your@pc:~$ npm run dev
 ```
 
 ## License
